@@ -1,0 +1,38 @@
+{
+  "travelCodeFlightSearch": {
+    "provider": "TravelCode",
+    "request": {
+      "origin": "SFO",
+      "destination": "ORD",
+      "departDate": "2026-05-10",
+      "returnDate": "2026-05-13",
+      "adults": 1
+    },
+    "response": {
+      "tool": "flight_search",
+      "query": {
+        "destination": "Chicago",
+        "dateRange": { "start": "2026-05-10", "end": "2026-05-13" }
+      },
+      "flights": [
+        { "airline": "United", "departTime": "9:30 AM", "durationLabel": "2h 15m", "priceUsd": 245, "cabin": "Economy" }
+      ]
+    }
+  },
+  "googleCalendarCreateEvent": {
+    "provider": "GoogleCalendar",
+    "request": {
+      "calendarId": "primary",
+      "summary": "Chicago Trip Flight UA1842",
+      "start": { "date": "2026-05-10" },
+      "end": { "date": "2026-05-13" }
+    },
+    "response": {
+      "tool": "calendar_add",
+      "success": true,
+      "title": "Chicago Trip Flight UA1842",
+      "startIso": "2026-05-10",
+      "endIso": "2026-05-13"
+    }
+  }
+}

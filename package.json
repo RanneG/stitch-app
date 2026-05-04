@@ -1,0 +1,15 @@
+{
+  "name": "stitch",
+  "private": true,
+  "workspaces": ["apps/desktop", "packages/shared"],
+  "scripts": {
+    "dev": "npm run dev -w @stitch/desktop",
+    "dev:ui": "npm run dev:ui -w @stitch/desktop",
+    "dev:browser": "npm run dev:browser -w @stitch/desktop",
+    "build": "npm run build -w @stitch/desktop",
+    "tauri": "npm run tauri -w @stitch/desktop",
+    "lint": "npm run lint -w @stitch/desktop",
+    "typecheck": "npm run typecheck -w @stitch/shared && npm run typecheck -w @stitch/desktop",
+    "kill:dev": "bash scripts/kill-dev.sh"
+  }
+}

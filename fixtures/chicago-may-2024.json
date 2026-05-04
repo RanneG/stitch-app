@@ -1,0 +1,226 @@
+{
+  "session": {
+    "id": "sess-chicago-may-2026",
+    "title": "Chicago Trip",
+    "createdAt": "2026-05-01T10:40:00.000Z",
+    "tripContext": {
+      "destinationLabel": "Chicago",
+      "dateRange": {
+        "start": "2026-05-10",
+        "end": "2026-05-13"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1494522855154-9297ac14b55f",
+      "tags": ["planning", "flight-booked", "hotel-search"]
+    }
+  },
+  "messages": [
+    {
+      "id": "msg-1",
+      "sessionId": "sess-chicago-may-2026",
+      "role": "user",
+      "createdAt": "2026-05-01T10:42:00.000Z",
+      "content": [
+        {
+          "type": "text",
+          "text": "Book me a flight to Chicago for May 10-13."
+        }
+      ]
+    },
+    {
+      "id": "msg-2",
+      "sessionId": "sess-chicago-may-2026",
+      "role": "assistant",
+      "createdAt": "2026-05-01T10:42:14.000Z",
+      "content": [
+        {
+          "type": "tool_status",
+          "text": "Searching flights...",
+          "phase": "pending"
+        }
+      ]
+    },
+    {
+      "id": "msg-3",
+      "sessionId": "sess-chicago-may-2026",
+      "role": "assistant",
+      "createdAt": "2026-05-01T10:42:32.000Z",
+      "content": [
+        {
+          "type": "flight_options_row",
+          "flights": [
+            {
+              "airline": "United",
+              "departTime": "9:30 AM",
+              "durationLabel": "2h 15m",
+              "priceUsd": 245,
+              "cabin": "Economy"
+            },
+            {
+              "airline": "American",
+              "departTime": "11:00 AM",
+              "durationLabel": "2h 20m",
+              "priceUsd": 298,
+              "cabin": "Standard"
+            },
+            {
+              "airline": "Delta",
+              "departTime": "2:15 PM",
+              "durationLabel": "2h 10m",
+              "priceUsd": 312,
+              "cabin": "Main Cabin"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "msg-4",
+      "sessionId": "sess-chicago-may-2026",
+      "role": "user",
+      "createdAt": "2026-05-01T10:43:02.000Z",
+      "content": [
+        {
+          "type": "text",
+          "text": "Book the United option."
+        }
+      ]
+    },
+    {
+      "id": "msg-5",
+      "sessionId": "sess-chicago-may-2026",
+      "role": "assistant",
+      "createdAt": "2026-05-01T10:43:19.000Z",
+      "content": [
+        {
+          "type": "receipt_card",
+          "provider": "United Airlines",
+          "confirmationCode": "UA1842",
+          "routeLabel": "SFO -> ORD",
+          "departedAtLabel": "May 10, 2026 - 9:30 AM",
+          "totalCents": 24500,
+          "currency": "USD",
+          "status": "paid"
+        },
+        {
+          "type": "text",
+          "text": "Flight booked. Confirmation UA1842."
+        }
+      ]
+    },
+    {
+      "id": "msg-6",
+      "sessionId": "sess-chicago-may-2026",
+      "role": "assistant",
+      "createdAt": "2026-05-01T10:43:28.000Z",
+      "content": [
+        {
+          "type": "confirm_buttons",
+          "prompt": "Add this flight to your calendar?",
+          "options": [
+            { "id": "yes", "label": "Yes", "variant": "primary" },
+            { "id": "later", "label": "Remind me later", "variant": "secondary" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "msg-7",
+      "sessionId": "sess-chicago-may-2026",
+      "role": "user",
+      "createdAt": "2026-05-01T10:43:45.000Z",
+      "content": [
+        {
+          "type": "text",
+          "text": "Yes, add it."
+        }
+      ]
+    },
+    {
+      "id": "msg-8",
+      "sessionId": "sess-chicago-may-2026",
+      "role": "assistant",
+      "createdAt": "2026-05-01T10:43:58.000Z",
+      "content": [
+        {
+          "type": "tool_status",
+          "text": "Added to your calendar.",
+          "phase": "success"
+        },
+        {
+          "type": "hotel_options_carousel",
+          "hotels": [
+            {
+              "name": "Hyatt Regency O'Hare",
+              "pricePerNightUsd": 189,
+              "rating": 4.2,
+              "distanceMiles": 0.5
+            },
+            {
+              "name": "Hilton Rosemont",
+              "pricePerNightUsd": 176,
+              "rating": 4.0,
+              "distanceMiles": 1.0
+            },
+            {
+              "name": "The Silversmith Hotel",
+              "pricePerNightUsd": 215,
+              "rating": 4.7,
+              "distanceMiles": 0.3
+            }
+          ]
+        },
+        {
+          "type": "itinerary_delta",
+          "summary": "Trip updated: flight booked and calendar synced for Chicago (May 10-13).",
+          "affectedDateIso": ["2026-05-10", "2026-05-11", "2026-05-12", "2026-05-13"]
+        }
+      ]
+    },
+    {
+      "id": "msg-9",
+      "sessionId": "sess-chicago-may-2026",
+      "role": "assistant",
+      "createdAt": "2026-05-01T10:44:12.000Z",
+      "content": [
+        {
+          "type": "tool_status",
+          "text": "Found three dinner spots near your hotel for May 10.",
+          "phase": "success"
+        },
+        {
+          "type": "text",
+          "text": "Reserve a table — no prepayment at booking."
+        },
+        {
+          "type": "restaurant_options_row",
+          "restaurants": [
+            {
+              "name": "Buvette",
+              "cuisine": "French",
+              "priceRange": "$$",
+              "rating": 4.5,
+              "partySize": 2,
+              "reservationTimeLabel": "May 10, 2026 · 7:30 PM"
+            },
+            {
+              "name": "The Purple Pig",
+              "cuisine": "Mediterranean",
+              "priceRange": "$$",
+              "rating": 4.7,
+              "partySize": 2,
+              "reservationTimeLabel": "May 10, 2026 · 8:00 PM"
+            },
+            {
+              "name": "Girl & The Goat",
+              "cuisine": "American",
+              "priceRange": "$$$",
+              "rating": 4.8,
+              "partySize": 2,
+              "reservationTimeLabel": "May 10, 2026 · 7:45 PM"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

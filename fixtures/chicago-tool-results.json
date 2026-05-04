@@ -1,0 +1,132 @@
+{
+  "session": {
+    "id": "sess-chicago-mapper-replay",
+    "title": "Chicago Trip (Mapper Replay)",
+    "createdAt": "2026-05-01T10:40:00.000Z",
+    "tripContext": {
+      "destinationLabel": "Chicago",
+      "dateRange": { "start": "2026-05-10", "end": "2026-05-13" },
+      "tags": ["planning", "mapper-replay"]
+    }
+  },
+  "events": [
+    {
+      "kind": "user_text",
+      "createdAt": "2026-05-01T10:42:00.000Z",
+      "text": "Book me a flight to Chicago for May 10-13."
+    },
+    {
+      "kind": "assistant_tool_result",
+      "createdAt": "2026-05-01T10:42:20.000Z",
+      "result": {
+        "tool": "flight_search",
+        "query": {
+          "destination": "Chicago",
+          "dateRange": { "start": "2026-05-10", "end": "2026-05-13" }
+        },
+        "flights": [
+          { "airline": "United", "departTime": "9:30 AM", "durationLabel": "2h 15m", "priceUsd": 245, "cabin": "Economy" },
+          { "airline": "American", "departTime": "11:00 AM", "durationLabel": "2h 20m", "priceUsd": 298, "cabin": "Standard" },
+          { "airline": "Delta", "departTime": "2:15 PM", "durationLabel": "2h 10m", "priceUsd": 312, "cabin": "Main Cabin" }
+        ]
+      }
+    },
+    {
+      "kind": "user_text",
+      "createdAt": "2026-05-01T10:43:02.000Z",
+      "text": "Book the United option and use my saved card."
+    },
+    {
+      "kind": "assistant_tool_result",
+      "createdAt": "2026-05-01T10:43:18.000Z",
+      "result": {
+        "tool": "payment_success",
+        "provider": "United Airlines",
+        "confirmationCode": "UA1842",
+        "routeLabel": "SFO -> ORD",
+        "departedAtLabel": "May 10, 2026 - 9:30 AM",
+        "totalCents": 24500,
+        "currency": "USD",
+        "cardLast4": "4242"
+      }
+    },
+    {
+      "kind": "assistant_blocks",
+      "createdAt": "2026-05-01T10:43:27.000Z",
+      "blocks": [
+        {
+          "type": "confirm_buttons",
+          "prompt": "Add this flight to your calendar?",
+          "options": [
+            { "id": "yes", "label": "Yes", "variant": "primary" },
+            { "id": "later", "label": "Remind me later", "variant": "secondary" }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "user_text",
+      "createdAt": "2026-05-01T10:43:41.000Z",
+      "text": "Yes, and show hotels near O'Hare."
+    },
+    {
+      "kind": "assistant_tool_result",
+      "createdAt": "2026-05-01T10:43:52.000Z",
+      "result": {
+        "tool": "calendar_add",
+        "success": true,
+        "title": "Chicago Trip Flight UA1842",
+        "startIso": "2026-05-10",
+        "endIso": "2026-05-13"
+      }
+    },
+    {
+      "kind": "assistant_tool_result",
+      "createdAt": "2026-05-01T10:44:04.000Z",
+      "result": {
+        "tool": "hotel_search",
+        "location": "Chicago O'Hare",
+        "hotels": [
+          { "name": "Hyatt Regency O'Hare", "pricePerNightUsd": 189, "rating": 4.2, "distanceMiles": 0.5 },
+          { "name": "Hilton Rosemont", "pricePerNightUsd": 176, "rating": 4.0, "distanceMiles": 1.0 },
+          { "name": "The Silversmith Hotel", "pricePerNightUsd": 215, "rating": 4.7, "distanceMiles": 0.3 }
+        ]
+      }
+    },
+    {
+      "kind": "assistant_blocks",
+      "createdAt": "2026-05-01T10:44:15.000Z",
+      "blocks": [
+        {
+          "type": "restaurant_options_row",
+          "restaurants": [
+            {
+              "name": "Buvette",
+              "cuisine": "French",
+              "priceRange": "$$",
+              "rating": 4.5,
+              "partySize": 2,
+              "reservationTimeLabel": "May 10, 2026 · 7:30 PM"
+            },
+            {
+              "name": "The Purple Pig",
+              "cuisine": "Mediterranean",
+              "priceRange": "$$",
+              "rating": 4.7,
+              "partySize": 2,
+              "reservationTimeLabel": "May 10, 2026 · 8:00 PM"
+            },
+            {
+              "name": "Girl & The Goat",
+              "cuisine": "American",
+              "priceRange": "$$$",
+              "rating": 4.8,
+              "partySize": 2,
+              "reservationTimeLabel": "May 10, 2026 · 7:45 PM"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
