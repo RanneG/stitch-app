@@ -4,6 +4,8 @@
 
 **HTTP backend** (Google OAuth, subscriptions, Gmail scan, local RAG, face, Help): run **[linkup_mcp](https://github.com/RanneG/linkup_mcp)** `stitch_rag_bridge.py` locally. See **[docs/BACKEND.md](docs/BACKEND.md)**.
 
+**Do I need linkup_mcp to run the app?** Not to install and open the **Stitch UI** (`npm run dev:browser` / `npm run dev`). **Yes**, for anything that calls **`/api/*`** (auth, data, RAG, face, server-backed Help). Details: **[docs/RUNNING.md](docs/RUNNING.md)**.
+
 Always-on desktop subscription manager that pings you before renewals and lets you approve payments with voice + optional face MFA.
 
 ## Why Stitch changed

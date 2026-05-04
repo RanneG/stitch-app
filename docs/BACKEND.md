@@ -2,6 +2,8 @@
 
 Stitch’s **Google sign-in**, **subscription persistence**, **Gmail discovery**, **local PDF RAG**, **face enroll/verify**, and **Help / Ask Stitch** routes are served by the **Flask bridge** in the **[linkup_mcp](https://github.com/RanneG/linkup_mcp)** repository—not by this app alone.
 
+**Can I run stitch-app without linkup_mcp?** You can **start** the UI (see **[RUNNING.md](RUNNING.md)**). API-backed features need the bridge.
+
 ## Run the bridge locally
 
 From a clone of **linkup_mcp** (Python 3.12+, `uv sync` or `pip install -e .`):
