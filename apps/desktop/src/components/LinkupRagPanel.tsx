@@ -1,29 +1,11 @@
 import { useEffect, useState } from "react";
-
-type RagStitchView = {
-  state: string;
-  answer: string;
-  confidence: string;
-  source_cards: Array<{
-    rank?: number;
-    source_id?: string;
-    score?: number | null;
-    snippet?: string;
-  }>;
-  show_sources?: boolean;
-  debug_retrieval_cards?: Array<{
-    rank?: number;
-    source_id?: string;
-    score?: number | null;
-    snippet?: string;
-  }>;
-};
+import type { RagStitchPostBody, RagStitchView } from "stitch-api-types";
 
 export type RagVoiceRunRequest = { id: number; query: string };
 
 /**
  * Optional local "document brain": POST /api/rag/stitch proxied to
- * cursor_linkup_mcp stitch_rag_bridge.py (default http://127.0.0.1:8765).
+ * linkup_mcp `stitch_rag_bridge.py` (default http://127.0.0.1:8765).
  */
 export function LinkupRagPanel({ voiceRunRequest }: { voiceRunRequest?: RagVoiceRunRequest | null }) {
   const [query, setQuery] = useState("");
@@ -42,7 +24,7 @@ export function LinkupRagPanel({ voiceRunRequest }: { voiceRunRequest?: RagVoice
       const res = await fetch("/api/rag/stitch", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: trimmed }),
+        body: JSON.stringify({ query: trimmed } satisfies RagStitchPostBody),
       });
       if (!res.ok) {
         const text = await res.text();
@@ -69,7 +51,7 @@ export function LinkupRagPanel({ voiceRunRequest }: { voiceRunRequest?: RagVoice
       <p className="mt-1 font-body text-xs text-stitch-secondary">
         Runs PDF RAG via the Linkup MCP bridge. Start{" "}
         <code className="rounded bg-stitch-neutral/30 px-1 py-0.5 text-[11px]">stitch_rag_bridge.py</code> in{" "}
-        <code className="rounded bg-stitch-neutral/30 px-1 py-0.5 text-[11px]">cursor_linkup_mcp</code> first.
+        <code className="rounded bg-stitch-neutral/30 px-1 py-0.5 text-[11px]">linkup_mcp</code> first.
       </p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row">
         <input

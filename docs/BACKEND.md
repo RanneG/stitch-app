@@ -18,6 +18,10 @@ Default listen address: `http://127.0.0.1:8765`
 
 In **apps/desktop** dev mode, Vite should proxy **`/api`** and **`/health`** to `127.0.0.1:8765`. See **`vite.config.ts`** in this repo and the integration notes in linkup_mcp under **`integrations/stitch/README.md`**.
 
+## TypeScript types (`stitch-api-types`)
+
+Shared **`/api/rag/stitch`** view shapes and health payloads live in linkup_mcp **`packages/stitch-api-types`**. **apps/desktop** depends on it via `file:` in **`package.json`** (path assumes a sibling clone named **`cursor_linkup_mcp`**; adjust if your linkup_mcp folder name differs), then run **`npm install`** from this repo root.
+
 ## Environment
 
 OAuth and optional voice/STT settings are documented in linkup_mcp’s **`ENV_TEMPLATE.md`**.

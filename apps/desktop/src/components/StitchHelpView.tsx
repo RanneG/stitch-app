@@ -1,17 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-
-type RagStitchHelpView = {
-  state: string;
-  answer: string;
-  confidence: string;
-  source_cards: Array<{
-    rank?: number;
-    source_id?: string;
-    score?: number | null;
-    snippet?: string;
-  }>;
-  show_sources?: boolean;
-};
+import type { RagStitchPostBody, RagStitchView } from "stitch-api-types";
 
 function formatInline(text: string): ReactNode {
   const parts = text.split(/`([^`]+)`/);
@@ -99,7 +87,7 @@ function StitchSupportAssistant() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<RagStitchHelpView | null>(null);
+  const [result, setResult] = useState<RagStitchView | null>(null);
 
   async function runAsk() {
     const trimmed = query.trim();
@@ -112,13 +100,13 @@ function StitchSupportAssistant() {
       const res = await fetch("/api/rag/stitch-help", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: trimmed }),
+        body: JSON.stringify({ query: trimmed } satisfies RagStitchPostBody),
       });
       if (!res.ok) {
         const text = await res.text();
         throw new Error(text || res.statusText);
       }
-      const data = (await res.json()) as RagStitchHelpView;
+      const data = (await res.json()) as RagStitchView;
       setResult(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
