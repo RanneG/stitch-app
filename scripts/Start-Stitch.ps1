@@ -26,7 +26,7 @@ function Resolve-LinkupRoot {
   foreach ($cand in $candidates) {
     try {
       $abs = [System.IO.Path]::GetFullPath($cand)
-      if (Test-Path (Join-Path $abs "stitch_rag_bridge.py")) {
+      if (Test-Path (Join-Path $abs "rag.py")) {
         return $abs
       }
     } catch {}
@@ -44,20 +44,41 @@ Write-Host "linkup_mcp:  $linkupRoot" -ForegroundColor DarkGray
 Write-Host ""
 
 if ($Mode -eq "Bundled") {
-  Write-Host "Delegating bundled single-window mode to linkup_mcp/stitch_gui.py..." -ForegroundColor Yellow
-  $cmd = Join-Path $linkupRoot "scripts\Start-Stitch.ps1"
-  if (-not (Test-Path $cmd)) {
-    throw "Expected launcher not found: $cmd"
+  Write-Host "Starting bundled single-window mode from stitch-app..." -ForegroundColor Yellow
+  $venvPy = Join-Path $linkupRoot ".venv\Scripts\python.exe"
+  if (-not (Test-Path $venvPy)) {
+    throw "Expected Python venv not found in linkup_mcp: $venvPy"
   }
-  & powershell -NoProfile -ExecutionPolicy Bypass -File $cmd -Mode Bundled
+  $env:LINKUP_MCP_ROOT = $linkupRoot
+  & $venvPy (Join-Path $repoRoot "stitch_gui.py") --dist (Join-Path $repoRoot "apps\desktop\dist")
   exit $LASTEXITCODE
 }
 
-# TauriDev mode: delegate bridge + tauri startup to linkup helper.
-$desktopScript = Join-Path $linkupRoot "scripts\Start-StitchDesktop.ps1"
-if (-not (Test-Path $desktopScript)) {
-  throw "Expected desktop launcher not found: $desktopScript"
+# TauriDev mode: start bridge from stitch-app, then start desktop.
+$venvPy = Join-Path $linkupRoot ".venv\Scripts\python.exe"
+if (-not (Test-Path $venvPy)) {
+  throw "Expected Python venv not found in linkup_mcp: $venvPy"
 }
-Write-Host "Delegating Tauri + bridge startup to linkup_mcp..." -ForegroundColor Yellow
-& powershell -NoProfile -ExecutionPolicy Bypass -File $desktopScript
-exit $LASTEXITCODE
+$env:LINKUP_MCP_ROOT = $linkupRoot
+Write-Host "Starting bridge from stitch-app (using linkup_mcp runtime deps)..." -ForegroundColor DarkGray
+Start-Process -FilePath $venvPy -ArgumentList @((Join-Path $repoRoot "stitch_rag_bridge.py")) -WorkingDirectory $repoRoot -WindowStyle Minimized
+
+$deadline = (Get-Date).AddSeconds(45)
+$ready = $false
+while ((Get-Date) -lt $deadline) {
+  try {
+    $h = Invoke-RestMethod -Uri "http://127.0.0.1:8765/api/health" -TimeoutSec 2
+    if ($h.ok) { $ready = $true; break }
+  } catch {}
+  Start-Sleep -Milliseconds 400
+}
+if (-not $ready) {
+  Write-Warning "Bridge did not answer on /api/health in time."
+}
+
+Push-Location $repoRoot
+try {
+  npm run dev
+} finally {
+  Pop-Location
+}
